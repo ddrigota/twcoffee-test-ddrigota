@@ -1,0 +1,53 @@
+@import '@evilmartians/harmony/css/index.css';
+
+@mixin light-theme {
+	--background: var(--sand-50);
+	--foreground: var(--sand-800) --primary: var(--orange-600);
+	--primary-foreground: var(--orange-100);
+
+	--muted: var(--orange-100);
+	--muted-foreground: var(--orange-600);
+
+	--destructive: var(--red-600);
+	--destructive-foreground: var(--red-100);
+
+	--input: var(--sand-100);
+	--ring: var(--orange-600);
+
+	--radius: 0.5rem;
+}
+
+@mixin dark-theme {
+	--background: var(--sand-950);
+	--foreground: var(--sand-200);
+
+	--primary: var(--orange-400);
+	--primary-foreground: var(--orange-900);
+
+	--muted: var(--sand-900);
+	--muted-foreground: var(--sand-400);
+
+	--destructive: var(--red-400);
+	--destructive-foreground: var(--red-100);
+
+	--input: var(--sand-900);
+	--ring: var(--orange-400);
+
+	--radius: 0.5rem;
+}
+
+:root {
+	@include light-theme;
+}
+
+.dark {
+	@include dark-theme;
+}
+
+:root {
+	color-scheme: light;
+}
+
+.dark {
+	color-scheme: dark;
+}
