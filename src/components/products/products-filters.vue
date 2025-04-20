@@ -70,7 +70,6 @@ const resetFilters = () => {
 
 	&__checkboxes {
 		display: flex;
-		flex-wrap: wrap;
 		gap: 0.5rem 1rem;
 		flex: 2 1 300px;
 
@@ -84,15 +83,16 @@ const resetFilters = () => {
 					color: var(--primary);
 				}
 			}
-		}
 
-		&-item-label {
-			font-size: 0.875rem;
-			font-weight: 500;
-			color: var(--color-text-secondary);
-			user-select: none;
-			cursor: pointer;
-			transition: color 0.2s ease-in-out;
+			&-label {
+				font-size: 0.875rem;
+				font-weight: 500;
+				color: var(--color-text-secondary);
+				user-select: none;
+				cursor: pointer;
+				transition: color 0.2s ease-in-out;
+				text-wrap: nowrap;
+			}
 		}
 	}
 
