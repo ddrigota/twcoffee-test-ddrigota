@@ -5,9 +5,7 @@ import AppFooter from '~/components/footer/app-footer.vue';
 
 <template>
 	<div class="app-layout">
-		<client-only>
-			<app-header />
-		</client-only>
+		<app-header />
 		<main class="app-layout__content">
 			<slot />
 		</main>
@@ -23,6 +21,9 @@ import AppFooter from '~/components/footer/app-footer.vue';
 
 	&__content {
 		flex: 1;
+		height: 100%;
+		display: grid;
+		place-items: center;
 	}
 }
 </style>

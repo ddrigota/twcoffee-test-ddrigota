@@ -17,7 +17,7 @@ const colorMode = useColorMode();
 
 <style scoped lang="scss">
 .app-logo {
-	width: 10rem;
+	width: 8rem;
 	height: 100%;
 
 	&__image {

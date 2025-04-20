@@ -22,13 +22,13 @@ import { Coffee } from 'lucide-vue-next';
 
 	&__text {
 		text-align: center;
-		font-size: 1.2rem;
+		font-size: 0.8rem;
 	}
 
 	&__coffee {
 		display: inline-block;
-		width: 1.5rem;
-		height: 1.5rem;
+		width: 1rem;
+		height: 1rem;
 		margin: 0 0.25rem;
 	}
 }

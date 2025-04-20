@@ -17,7 +17,7 @@ const isLight = computed(() => colorMode.value === 'light');
 
 <template>
 	<div class="theme-picker">
-		<DropdownMenu>
+		<DropdownMenu c>
 			<DropdownMenuTrigger as-child>
 				<Button variant="outline" class="theme-picker__button" size="icon">
 					<Moon
@@ -47,15 +47,21 @@ const isLight = computed(() => colorMode.value === 'light');
 <style scoped lang="scss">
 .theme-picker {
 	&__button {
-		height: 3.2rem;
-		width: 3.2rem;
-		padding: 0.5rem 1rem;
+		height: 2rem;
+		width: 2rem;
+		padding: 0.5rem;
 		position: relative;
+
+		&:hover {
+			.theme-picker__icon {
+				scale: 1.1;
+			}
+		}
 	}
 
 	&__icon {
-		height: 2rem;
-		width: 2rem;
+		height: 1rem;
+		width: 1rem;
 		position: absolute;
 		transition: all 0.3s ease-in-out;
 
@@ -73,14 +79,7 @@ const isLight = computed(() => colorMode.value === 'light');
 	}
 
 	&__dropdown-item {
-		padding: 1rem 2rem;
-		background-color: var(--background);
-		font-size: 1.6rem;
-
-		&:hover {
-			background-color: var(--primary);
-			color: var(--primary-foreground);
-		}
+		padding: 0.5rem;
 	}
 }
 </style>
