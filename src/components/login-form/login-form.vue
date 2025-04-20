@@ -1,12 +1,18 @@
 <template>
 	<div class="login-form">
 		<h1 class="login-form__title">Вход в систему</h1>
-		<form class="login-form__form" @submit.prevent="onSubmit">
+		<form class="login-form__form" @submit.prevent="handleSubmit">
 			<FormField v-slot="{ componentField }" name="username">
 				<FormItem>
 					<FormLabel>Email</FormLabel>
 					<FormControl>
-						<Input type="text" placeholder="username@example.com" v-bind="componentField" :aria-required="true" />
+						<Input
+							ref="usernameFieldRef"
+							type="email"
+							placeholder="username@example.com"
+							v-bind="componentField"
+							:aria-required="true"
+						/>
 					</FormControl>
 					<FormMessage />
 				</FormItem>
@@ -16,6 +22,7 @@
 					<FormLabel>Пароль</FormLabel>
 					<FormControl>
 						<Input
+							ref="passwordFieldRef"
 							type="password"
 							autocomplete="current-password"
 							placeholder="Введите пароль"
@@ -35,11 +42,15 @@
 
 <script setup lang="ts">
 import { useForm, configure, useIsSubmitting, useIsFormValid } from 'vee-validate';
+import { ref } from 'vue';
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '~/components/ui/form';
-import { credentialsSchema } from '~/types';
+import { credentialsSchema, type Credentials } from '~/types';
 import { toTypedSchema } from '@vee-validate/zod';
+import { toast } from 'vue-sonner';
+import type { LoginResult } from '~/types/server/api.types';
+
 const formSchema = toTypedSchema(credentialsSchema);
 
 const form = useForm({
@@ -51,16 +62,43 @@ const form = useForm({
 	},
 });
 
-const isSubmitting = useIsSubmitting();
-const isFormValid = useIsFormValid();
-
 configure({
 	validateOnBlur: true,
 	validateOnChange: true,
 });
 
-const onSubmit = form.handleSubmit((values) => {
-	console.log(values);
+const usernameFieldRef = ref<HTMLInputElement | null>(null);
+const passwordFieldRef = ref<HTMLInputElement | null>(null);
+
+const isSubmitting = useIsSubmitting();
+const isFormValid = useIsFormValid();
+
+const handleSubmit = form.handleSubmit(async (values: Credentials) => {
+	const { data, error } = await useFetch<LoginResult>('/api/login', {
+		method: 'POST',
+		body: values,
+	});
+
+	if (error.value) {
+		const errorMessage = error.value.data?.message || 'Ошибка при входе';
+		toast.error(errorMessage);
+
+		if (error.value.statusCode === 401 && errorMessage === 'Неверный пароль') {
+			form.setFieldError('password', 'Неверный пароль');
+			passwordFieldRef.value?.focus?.();
+			return;
+		}
+
+		usernameFieldRef.value?.focus?.();
+		return;
+	}
+
+	if (!data.value) {
+		toast.error('Не удалось получить данные пользователя');
+		return;
+	}
+
+	toast.success(`Добро пожаловать, ${data.value.name} ${data.value.surname}`);
 });
 </script>
 
@@ -68,7 +106,7 @@ const onSubmit = form.handleSubmit((values) => {
 .login-form {
 	&__title {
 		text-align: center;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1rem;
 		font-size: 1.5rem;
 	}
 
@@ -79,6 +117,7 @@ const onSubmit = form.handleSubmit((values) => {
 	}
 
 	&__submit {
+		margin-top: 1rem;
 		cursor: pointer;
 	}
 }

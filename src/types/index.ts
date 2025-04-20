@@ -2,10 +2,7 @@ import { z } from 'zod';
 
 export const credentialsSchema = z.object({
 	username: z.string().email('Неверный формат email').min(1, 'Введите email'),
-	password: z
-		.string()
-		.min(3, 'Пароль должен быть не менее 3 символов')
-		.regex(/^[a-zA-Z0-9]+$/, 'Пароль должен содержать только латинские буквы и цифры'),
+	password: z.string().min(3, 'Пароль должен быть не менее 3 символов'),
 });
 
 export const userSchema = z.object({
