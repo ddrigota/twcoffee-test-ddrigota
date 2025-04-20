@@ -21,9 +21,11 @@ definePageMeta({
 
 <style scoped lang="scss">
 .app-login {
+	width: 80%;
+	max-width: 40rem;
 	&__card {
-		width: 40rem;
-		padding: 2rem;
+		width: 100%;
+		padding: 1rem;
 	}
 }
 </style>

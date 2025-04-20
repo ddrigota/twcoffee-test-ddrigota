@@ -106,6 +106,10 @@ const handleSubmit = form.handleSubmit(async (values: Credentials) => {
 		text-align: center;
 		margin-bottom: 1rem;
 		font-size: 1.5rem;
+
+		@media (max-width: 768px) {
+			font-size: 1.2rem;
+		}
 	}
 
 	&__form {

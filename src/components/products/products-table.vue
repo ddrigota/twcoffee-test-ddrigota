@@ -1,9 +1,10 @@
 <script setup lang="ts" generic="TData, TValue">
-import type { ColumnDef, ColumnFiltersState } from '@tanstack/vue-table';
+import type { ColumnDef, ColumnFiltersState, VisibilityState } from '@tanstack/vue-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { FlexRender, getCoreRowModel, getFilteredRowModel, useVueTable } from '@tanstack/vue-table';
 import { valueUpdater } from '../ui/table/utils';
 import ProductsFilters from './products-filters.vue';
+import { useMediaQuery } from '@vueuse/core';
 
 const props = defineProps<{
 	columns: ColumnDef<TData, TValue>[];
@@ -11,6 +12,30 @@ const props = defineProps<{
 }>();
 
 const columnFilters = ref<ColumnFiltersState>([]);
+const columnVisibility = ref<VisibilityState>({});
+const isMobile = useMediaQuery('(max-width: 768px)');
+
+const mobileVisibleColumns = ['name', 'status', 'price'];
+
+watch(
+	isMobile,
+	(mobile) => {
+		if (mobile) {
+			const newVisibility: VisibilityState = {};
+
+			props.columns.forEach((column) => {
+				// @ts-expect-error - баг типизации, accessorKey существует в рантайме
+				const columnId = String(column.id || column.accessorKey);
+				newVisibility[columnId] = mobileVisibleColumns.includes(columnId);
+			});
+
+			columnVisibility.value = newVisibility;
+		} else {
+			columnVisibility.value = {};
+		}
+	},
+	{ immediate: true },
+);
 
 const table = useVueTable({
 	get data() {
@@ -22,9 +47,13 @@ const table = useVueTable({
 	getCoreRowModel: getCoreRowModel(),
 	getFilteredRowModel: getFilteredRowModel(),
 	onColumnFiltersChange: (updaterOrValue) => valueUpdater(updaterOrValue, columnFilters),
+	onColumnVisibilityChange: (updaterOrValue) => valueUpdater(updaterOrValue, columnVisibility),
 	state: {
 		get columnFilters() {
 			return columnFilters.value;
+		},
+		get columnVisibility() {
+			return columnVisibility.value;
 		},
 	},
 	enableFilters: true,
@@ -55,14 +84,16 @@ const table = useVueTable({
 							:key="row.id"
 							:data-state="row.getIsSelected() ? 'selected' : undefined"
 						>
-							<TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+							<TableCell v-for="cell in row.getVisibleCells()" :key="cell.id" :class="isMobile ? 'text-xs' : ''">
 								<FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
 							</TableCell>
 						</TableRow>
 					</template>
 					<template v-else>
 						<TableRow>
-							<TableCell :colspan="props.columns.length" class="h-24 text-center"> Нет результатов. </TableCell>
+							<TableCell :colspan="table.getVisibleFlatColumns().length" class="h-24 text-center">
+								Нет результатов.
+							</TableCell>
 						</TableRow>
 					</template>
 				</TableBody>
@@ -76,10 +107,12 @@ const table = useVueTable({
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+	flex: 1;
 
 	&__table {
-		width: 80vw;
-		height: 80vh;
+		width: 100%;
+		height: 100%;
+		overflow-x: auto;
 	}
 }
 </style>

@@ -26,6 +26,7 @@ export const columns: ColumnDef<Product>[] = [
 			const category = row.getValue('category') as string;
 			return h('div', { class: 'text-center font-medium' }, category);
 		},
+		filterFn: 'equals',
 	},
 
 	{
@@ -64,6 +65,15 @@ export const columns: ColumnDef<Product>[] = [
 			});
 
 			return h('div', { class: 'text-center font-medium' }, formattedDate);
+		},
+		filterFn: (row, columnId, filterValue) => {
+			if (!filterValue) return true;
+
+			const { start, end } = filterValue;
+			const cellValue = row.getValue(columnId) as string;
+			const date = new Date(cellValue);
+
+			return date >= new Date(start) && date <= new Date(end);
 		},
 	},
 	{

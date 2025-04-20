@@ -24,6 +24,7 @@ import AppFooter from '~/components/footer/app-footer.vue';
 		height: 100%;
 		display: grid;
 		place-items: center;
+		padding: 1rem;
 	}
 }
 </style>
