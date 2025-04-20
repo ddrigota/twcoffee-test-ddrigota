@@ -1,14 +1,21 @@
-<script setup lang="ts" generic="TData, TValue">
+<script setup lang="ts">
 import type { ColumnDef, ColumnFiltersState, VisibilityState } from '@tanstack/vue-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { FlexRender, getCoreRowModel, getFilteredRowModel, useVueTable } from '@tanstack/vue-table';
+import {
+	FlexRender,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	useVueTable,
+} from '@tanstack/vue-table';
 import { valueUpdater } from '../ui/table/utils';
 import ProductsFilters from './products-filters.vue';
 import { useMediaQuery } from '@vueuse/core';
+import type { Product } from '~/types/schemas';
 
 const props = defineProps<{
-	columns: ColumnDef<TData, TValue>[];
-	data: TData[];
+	columns: ColumnDef<Product>[];
+	data: Product[];
 }>();
 
 const columnFilters = ref<ColumnFiltersState>([]);
@@ -46,6 +53,7 @@ const table = useVueTable({
 	},
 	getCoreRowModel: getCoreRowModel(),
 	getFilteredRowModel: getFilteredRowModel(),
+	getPaginationRowModel: getPaginationRowModel(),
 	onColumnFiltersChange: (updaterOrValue) => valueUpdater(updaterOrValue, columnFilters),
 	onColumnVisibilityChange: (updaterOrValue) => valueUpdater(updaterOrValue, columnVisibility),
 	state: {
@@ -54,6 +62,11 @@ const table = useVueTable({
 		},
 		get columnVisibility() {
 			return columnVisibility.value;
+		},
+	},
+	initialState: {
+		pagination: {
+			pageSize: 20,
 		},
 	},
 	enableFilters: true,
@@ -99,6 +112,7 @@ const table = useVueTable({
 				</TableBody>
 			</Table>
 		</div>
+		<ProductsTablePagination :table="table" />
 	</div>
 </template>
 
@@ -108,8 +122,10 @@ const table = useVueTable({
 	flex-direction: column;
 	gap: 1rem;
 	flex: 1;
+	max-height: 100%;
 
 	&__table {
+		flex: 1;
 		width: 100%;
 		height: 100%;
 		overflow-x: auto;
