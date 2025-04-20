@@ -1,4 +1,4 @@
-import { defineEventHandler, readBody, createError } from 'h3';
+import { defineEventHandler, readBody, createError, setCookie } from 'h3';
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
 import { createHash } from 'crypto';
@@ -18,12 +18,21 @@ export default defineEventHandler(async (event) => {
 	const users = JSON.parse(data) as User[];
 
 	const user = users.find((u) => u.credentials.username === username);
-	if (!user || !user.active) {
+
+	if (!user) {
 		throw createError({
 			statusCode: 401,
-			message: 'Неверное имя пользователя или пользователь не активен',
+			message: 'Неверное имя пользователя',
 		});
 	}
+
+	if (!user.active) {
+		throw createError({
+			statusCode: 403,
+			message: 'Пользователь не активен',
+		});
+	}
+
 	const hash = createHash('md5').update(password).digest('hex');
 	if (hash !== user.credentials.passphrase) {
 		throw createError({
@@ -31,6 +40,22 @@ export default defineEventHandler(async (event) => {
 			message: 'Неверный пароль',
 		});
 	}
+
+	setCookie(
+		event,
+		'session',
+		JSON.stringify({
+			name: user.name,
+			surname: user.surname,
+			username,
+		}),
+		{
+			httpOnly: true,
+			sameSite: 'lax',
+			path: '/',
+			maxAge: 60 * 60 * 24,
+		},
+	);
 
 	return { success: true, name: user.name, surname: user.surname };
 });

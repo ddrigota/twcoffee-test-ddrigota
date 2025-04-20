@@ -50,7 +50,9 @@ import { credentialsSchema, type Credentials } from '~/types';
 import { toTypedSchema } from '@vee-validate/zod';
 import { toast } from 'vue-sonner';
 import type { LoginResult } from '~/types/server/api.types';
+import { useAuthStore } from '~/stores/auth';
 
+const authStore = useAuthStore();
 const formSchema = toTypedSchema(credentialsSchema);
 
 const form = useForm({
@@ -98,7 +100,14 @@ const handleSubmit = form.handleSubmit(async (values: Credentials) => {
 		return;
 	}
 
-	toast.success(`Добро пожаловать, ${data.value.name} ${data.value.surname}`);
+	authStore.user = {
+		name: data.value.name,
+		surname: data.value.surname,
+		username: values.username,
+	};
+	authStore.initialized = true;
+
+	await navigateTo('/');
 });
 </script>
 
