@@ -2,7 +2,7 @@
 	{
 		"id": 1,
 		"status": "inStock",
-		"date_created": "2023-09-15T10:30:00Z",
+		"date_created": "2024-01-15T10:30:00Z",
 		"name": "Кофе Арабика Эфиопия",
 		"category": "кофе",
 		"price": 650,
@@ -11,7 +11,7 @@
 	{
 		"id": 2,
 		"status": "inStock",
-		"date_created": "2023-10-01T16:20:00Z",
+		"date_created": "2024-02-01T16:20:00Z",
 		"name": "Кофе Робуста Вьетнам",
 		"category": "кофе",
 		"price": 520,
@@ -20,7 +20,7 @@
 	{
 		"id": 3,
 		"status": "inStock",
-		"date_created": "2023-10-05T13:30:00Z",
+		"date_created": "2024-02-05T13:30:00Z",
 		"name": "Кофе Кения АА",
 		"category": "кофе",
 		"price": 780,
@@ -29,7 +29,7 @@
 	{
 		"id": 4,
 		"status": "inStock",
-		"date_created": "2023-10-10T12:15:00Z",
+		"date_created": "2024-02-10T12:15:00Z",
 		"name": "Кофе Бразилия Сантос",
 		"category": "кофе",
 		"price": 600,
@@ -38,7 +38,7 @@
 	{
 		"id": 5,
 		"status": "inStock",
-		"date_created": "2023-10-15T16:45:00Z",
+		"date_created": "2024-03-15T16:45:00Z",
 		"name": "Кофе Колумбия Супремо",
 		"category": "кофе",
 		"price": 720,
@@ -47,7 +47,7 @@
 	{
 		"id": 6,
 		"status": "inStock",
-		"date_created": "2023-10-25T15:40:00Z",
+		"date_created": "2024-03-25T15:40:00Z",
 		"name": "Кофе Эфиопия Иргачеффе",
 		"category": "кофе",
 		"price": 850,
@@ -56,7 +56,7 @@
 	{
 		"id": 7,
 		"status": "outOfStock",
-		"date_created": "2023-07-15T10:40:00Z",
+		"date_created": "2024-01-15T10:40:00Z",
 		"name": "Кофе Гватемала Антигуа",
 		"category": "кофе",
 		"price": 750,
@@ -65,7 +65,7 @@
 	{
 		"id": 8,
 		"status": "inStock",
-		"date_created": "2023-11-05T13:30:00Z",
+		"date_created": "2024-04-05T13:30:00Z",
 		"name": "Кофе Коста-Рика Тарразу",
 		"category": "кофе",
 		"price": 790,
@@ -74,7 +74,7 @@
 	{
 		"id": 9,
 		"status": "inStock",
-		"date_created": "2023-11-10T15:20:00Z",
+		"date_created": "2024-04-10T15:20:00Z",
 		"name": "Кофе Ямайка Блю Маунтин",
 		"category": "кофе",
 		"price": 1950,
@@ -83,7 +83,7 @@
 	{
 		"id": 10,
 		"status": "inStock",
-		"date_created": "2023-10-28T09:50:00Z",
+		"date_created": "2024-03-28T09:50:00Z",
 		"name": "Кофе Суматра Манделинг",
 		"category": "кофе",
 		"price": 680,
@@ -92,7 +92,7 @@
 	{
 		"id": 11,
 		"status": "outOfStock",
-		"date_created": "2023-08-15T12:20:00Z",
+		"date_created": "2024-01-15T12:20:00Z",
 		"name": "Кофе Йемен Мокка",
 		"category": "кофе",
 		"price": 890,
@@ -101,7 +101,7 @@
 	{
 		"id": 12,
 		"status": "inStock",
-		"date_created": "2023-11-15T12:15:00Z",
+		"date_created": "2024-05-15T12:15:00Z",
 		"name": "Кофе Эфиопия Сидамо",
 		"category": "кофе",
 		"price": 740,
@@ -110,7 +110,7 @@
 	{
 		"id": 13,
 		"status": "inStock",
-		"date_created": "2023-11-20T14:30:00Z",
+		"date_created": "2024-05-20T14:30:00Z",
 		"name": "Кофе Панама Гейша",
 		"category": "кофе",
 		"price": 1800,
@@ -119,7 +119,7 @@
 	{
 		"id": 14,
 		"status": "outOfStock",
-		"date_created": "2023-08-20T11:25:00Z",
+		"date_created": "2024-01-20T11:25:00Z",
 		"name": "Кофе Сальвадор Пакамара",
 		"category": "кофе",
 		"price": 710,
@@ -128,7 +128,7 @@
 	{
 		"id": 15,
 		"status": "inStock",
-		"date_created": "2023-11-25T16:45:00Z",
+		"date_created": "2024-06-25T16:45:00Z",
 		"name": "Кофе Мексика Чьяпас",
 		"category": "кофе",
 		"price": 650,
@@ -137,7 +137,7 @@
 	{
 		"id": 16,
 		"status": "inStock",
-		"date_created": "2023-11-30T13:10:00Z",
+		"date_created": "2024-06-30T13:10:00Z",
 		"name": "Кофе Никарагуа Марагоджип",
 		"category": "кофе",
 		"price": 730,
@@ -146,7 +146,7 @@
 	{
 		"id": 17,
 		"status": "inStock",
-		"date_created": "2023-12-05T09:30:00Z",
+		"date_created": "2024-07-05T09:30:00Z",
 		"name": "Кофе Гондурас SHG",
 		"category": "кофе",
 		"price": 640,
@@ -155,7 +155,7 @@
 	{
 		"id": 18,
 		"status": "outOfStock",
-		"date_created": "2023-09-15T12:20:00Z",
+		"date_created": "2024-01-15T12:20:00Z",
 		"name": "Кофе Индия Муссонный Малабар",
 		"category": "кофе",
 		"price": 700,
@@ -164,7 +164,7 @@
 	{
 		"id": 19,
 		"status": "inStock",
-		"date_created": "2023-12-10T15:40:00Z",
+		"date_created": "2024-07-10T15:40:00Z",
 		"name": "Кофе Перу Органик",
 		"category": "кофе",
 		"price": 690,
@@ -173,10 +173,55 @@
 	{
 		"id": 20,
 		"status": "inStock",
-		"date_created": "2023-12-15T10:15:00Z",
+		"date_created": "2024-07-15T10:15:00Z",
 		"name": "Кофе Танзания Килиманджаро",
 		"category": "кофе",
 		"price": 760,
 		"description": "Кофе, выращенный на склонах горы Килиманджаро, с ярким фруктовым вкусом и винной кислинкой."
+	},
+	{
+		"id": 21,
+		"status": "inStock",
+		"date_created": "2024-08-10T11:30:00Z",
+		"name": "Чай Дарджилинг Первый сбор",
+		"category": "чай",
+		"price": 820,
+		"description": "Элитный черный чай из региона Дарджилинг с мускатным ароматом и цветочными нотами."
+	},
+	{
+		"id": 22,
+		"status": "inStock",
+		"date_created": "2024-09-05T14:20:00Z",
+		"name": "Чай Пуэр Шу выдержанный",
+		"category": "чай",
+		"price": 950,
+		"description": "Ферментированный китайский чай с глубоким землистым вкусом и сладковатым послевкусием."
+	},
+	{
+		"id": 23,
+		"status": "inStock",
+		"date_created": "2024-10-15T10:45:00Z",
+		"name": "Чай Улун Те Гуань Инь",
+		"category": "чай",
+		"price": 880,
+		"description": "Полуферментированный китайский чай с насыщенным цветочным ароматом и сладким вкусом."
+	},
+	{
+		"id": 24,
+		"status": "outOfStock",
+		"date_created": "2025-01-20T13:15:00Z",
+		"name": "Чай Матча церемониальный",
+		"category": "чай",
+		"price": 1250,
+		"description": "Высший сорт японского порошкового зеленого чая с нежным вкусом и богатым ароматом."
+	},
+	{
+		"id": 25,
+		"status": "inStock",
+		"date_created": "2025-02-28T15:30:00Z",
+		"name": "Чай Ассам Золотой типс",
+		"category": "чай",
+		"price": 750,
+		"description": "Индийский черный чай с золотистыми почками, солодовым вкусом и легкой сладостью."
 	}
 ]

@@ -1,16 +1,13 @@
-import { defineEventHandler } from 'h3';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { defineEventHandler, createError } from 'h3';
+import { promises as fs } from 'fs';
+import { resolve } from 'path';
 import type { Product } from '~/types/schemas';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dataPath = path.resolve(__dirname, '../data/products.json');
 
 export default defineEventHandler(async () => {
 	try {
-		const rawData = fs.readFileSync(dataPath, 'utf8');
-		const products: Product[] = JSON.parse(rawData);
+		const filePath = resolve(process.cwd(), 'src/server/data/products.json');
+		const data = await fs.readFile(filePath, 'utf-8');
+		const products = JSON.parse(data) as Product[];
 
 		return {
 			products,
@@ -18,10 +15,9 @@ export default defineEventHandler(async () => {
 		};
 	} catch (error) {
 		console.error('Ошибка при чтении продуктов:', error);
-		return {
-			products: [],
-			total: 0,
-			error: 'Не удалось загрузить продукты',
-		};
+		throw createError({
+			statusCode: 500,
+			message: 'Не удалось загрузить продукты',
+		});
 	}
 });
