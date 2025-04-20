@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({
-	name: 'HomePage',
+onMounted(() => {
+	navigateTo('/account');
 });
 </script>

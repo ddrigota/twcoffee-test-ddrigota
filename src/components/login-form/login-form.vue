@@ -46,10 +46,9 @@ import { ref } from 'vue';
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '~/components/ui/form';
-import { credentialsSchema, type Credentials } from '~/types';
+import { credentialsSchema, type Credentials } from '~/types/schemas';
 import { toTypedSchema } from '@vee-validate/zod';
 import { toast } from 'vue-sonner';
-import type { LoginResult } from '~/types/server/api.types';
 import { useAuthStore } from '~/stores/auth';
 
 const authStore = useAuthStore();
@@ -75,39 +74,29 @@ const passwordFieldRef = ref<HTMLInputElement | null>(null);
 const isSubmitting = useIsSubmitting();
 const isFormValid = useIsFormValid();
 
-const handleSubmit = form.handleSubmit(async (values: Credentials) => {
-	const { data, error } = await useFetch<LoginResult>('/api/login', {
-		method: 'POST',
-		body: values,
-	});
+interface ApiError {
+	statusCode?: number;
+	data?: {
+		message?: string;
+	};
+}
 
-	if (error.value) {
-		const errorMessage = error.value.data?.message || 'Ошибка при входе';
+const handleSubmit = form.handleSubmit(async (values: Credentials) => {
+	try {
+		await authStore.login(values);
+	} catch (error: unknown) {
+		const apiError = error as ApiError;
+		const errorMessage = apiError?.data?.message || 'Ошибка при входе';
 		toast.error(errorMessage);
 
-		if (error.value.statusCode === 401 && errorMessage === 'Неверный пароль') {
+		if (apiError?.statusCode === 401 && errorMessage === 'Неверный пароль') {
 			form.setFieldError('password', 'Неверный пароль');
 			passwordFieldRef.value?.focus?.();
 			return;
 		}
 
 		usernameFieldRef.value?.focus?.();
-		return;
 	}
-
-	if (!data.value) {
-		toast.error('Не удалось получить данные пользователя');
-		return;
-	}
-
-	authStore.user = {
-		name: data.value.name,
-		surname: data.value.surname,
-		username: values.username,
-	};
-	authStore.initialized = true;
-
-	await navigateTo('/');
 });
 </script>
 

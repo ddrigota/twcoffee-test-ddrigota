@@ -2,7 +2,7 @@ import { defineEventHandler, readBody, createError, setCookie } from 'h3';
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
 import { createHash } from 'crypto';
-import type { User } from '~/types';
+import type { User } from '~/types/schemas';
 
 export default defineEventHandler(async (event) => {
 	const { username, password } = await readBody(event);
@@ -57,5 +57,11 @@ export default defineEventHandler(async (event) => {
 		},
 	);
 
-	return { success: true, name: user.name, surname: user.surname };
+	return {
+		user: {
+			name: user.name,
+			surname: user.surname,
+			username,
+		},
+	};
 });
