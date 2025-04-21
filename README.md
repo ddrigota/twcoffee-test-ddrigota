@@ -10,6 +10,10 @@
 - [Репозиторий](https://github.com/ddrigota/twcoffee-test-ddrigota)
 - [Резюме](https://hh.ru/resume/b5001714ff0d0971780039ed1f416b59376a59)
 
+Первые креды для логина вынесу сюда
+- email: david.jones@creds.com
+- pass: 8u3&s-1uda
+
 ## Технологии
 
 - Фронетенд -- Vue3 + Nuxt 3 без SSR (здесь в нем нет смысла)
