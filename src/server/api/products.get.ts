@@ -1,13 +1,10 @@
 import { defineEventHandler, createError } from 'h3';
-import { promises as fs } from 'fs';
-import { resolve } from 'path';
 import { productSchema } from '~/types/schemas';
+import productsData from '~/server/data/products.json';
 
 export default defineEventHandler(async () => {
 	try {
-		const filePath = resolve(process.cwd(), 'src/server/data/products.json');
-		const data = await fs.readFile(filePath, 'utf-8');
-		const rawProducts = JSON.parse(data);
+		const rawProducts = productsData;
 
 		const parseResult = productSchema.array().safeParse(rawProducts);
 

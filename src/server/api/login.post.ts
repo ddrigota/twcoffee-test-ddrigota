@@ -1,8 +1,7 @@
 import { defineEventHandler, readBody, createError, setCookie, H3Error } from 'h3';
-import { promises as fs } from 'fs';
-import { resolve } from 'path';
 import { createHash } from 'crypto';
 import { credentialsSchema, userSchema } from '~/types/schemas';
+import usersData from '~/server/data/users.json';
 
 export default defineEventHandler(async (event) => {
 	try {
@@ -18,9 +17,7 @@ export default defineEventHandler(async (event) => {
 
 		const { username, password } = parseResult.data;
 
-		const filePath = resolve(process.cwd(), 'src/server/data/users.json');
-		const data = await fs.readFile(filePath, 'utf-8');
-		const rawUsers = JSON.parse(data);
+		const rawUsers = usersData;
 
 		const usersResult = userSchema.array().safeParse(rawUsers);
 		if (!usersResult.success) {
