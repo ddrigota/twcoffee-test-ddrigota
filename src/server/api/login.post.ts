@@ -17,9 +17,7 @@ export default defineEventHandler(async (event) => {
 
 		const { username, password } = parseResult.data;
 
-		const rawUsers = usersData;
-
-		const usersResult = userSchema.array().safeParse(rawUsers);
+		const usersResult = userSchema.array().safeParse(usersData);
 		if (!usersResult.success) {
 			console.error('Ошибка валидации данных пользователей:', usersResult.error);
 			throw createError({

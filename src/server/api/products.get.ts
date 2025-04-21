@@ -4,9 +4,7 @@ import productsData from '~/server/data/products.json';
 
 export default defineEventHandler(async () => {
 	try {
-		const rawProducts = productsData;
-
-		const parseResult = productSchema.array().safeParse(rawProducts);
+		const parseResult = productSchema.array().safeParse(productsData);
 
 		if (!parseResult.success) {
 			console.error('Ошибка валидации продуктов:', parseResult.error);
